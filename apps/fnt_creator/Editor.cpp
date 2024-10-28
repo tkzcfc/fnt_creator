@@ -162,6 +162,8 @@ int Editor::run(const GenerateConfig& config)
         ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
+        fntRender();
+
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
@@ -292,8 +294,6 @@ void Editor::fntRender()
 
 void Editor::openglDraw()
 {
-    fntRender();
-
     glm::vec2 size = m_winSize;
     float zeye = m_winSize.y / 1.154700538379252f;
 

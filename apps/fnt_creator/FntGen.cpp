@@ -264,10 +264,22 @@ bool FntGen::drawPage(const GenerateConfig& config, FntPage& page)
     {
         std::cout << "Rendering with GPU (Opengl)" << std::endl;
 
+        // 重置 OpenGL 状态
+        m_context->resetContext(kAll_GrBackendState);
+
+
         GLuint fbo = 0;
         GLuint texture = 0;
         glGenFramebuffers(1, &fbo);
         glBindFramebuffer(GL_FRAMEBUFFER, fbo);
+
+        // 清理各种缓冲区
+        glEnable(GL_DEPTH_TEST);
+        glEnable(GL_STENCIL_TEST);
+        glClearColor(1.0f, 1.0f, 1.0f, 0.0f);  // 颜色缓冲区清为透明黑色
+        glClearDepth(1.0f);                    // 深度缓冲区清为1.0（最远）
+        glClearStencil(0);                     // 模板缓冲区清为0
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
         // 创建用于离屏渲染的纹理
         glGenTextures(1, &texture);
