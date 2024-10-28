@@ -20,6 +20,10 @@
 
 struct PageConfig
 {
+    PageConfig()
+    {
+        text = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_=  !\"%&'()*,-./0123456789";
+    }
     std::string text;
     std::vector<uint32_t> chars;
     std::vector<std::string> fonts;
@@ -28,6 +32,15 @@ AJSON(PageConfig, text, chars, fonts);
 
 struct Position
 {
+    Position()
+    {
+        x = y = 0.0f;
+    }
+    Position(float _x, float _y)
+    {
+        x = _x;
+        y = _y;
+    }
     float x;
     float y;
 };
@@ -38,8 +51,8 @@ struct LinearGradient
 {
     LinearGradient()
     {
-        begin = Position{ .x = 0.5f, .y = 1.0f };
-        end = Position{ .x = 0.5f, .y = 0.0f };
+        begin = Position(0.5f, 1.0f);
+        end = Position(0.5f, 0.0f);
     }
     // 起始位置
     Position begin;
@@ -54,6 +67,10 @@ AJSON(LinearGradient, begin, end, colors, pos);
 
 struct TextEffect
 {
+    TextEffect()
+    {
+        effect_type = "none";
+    }
     // 特效类型
     // linear_gradient 线性渐变
     std::string effect_type;
@@ -65,6 +82,13 @@ AJSON(TextEffect, effect_type, linear_gradient);
 
 struct TextShadow
 {
+    TextShadow()
+    {
+        offsetx = 0;
+        offsety = 0;
+        blur_radius = 0.0f;
+        color = "#ffffffff";
+    }
     int offsetx;
     int offsety;
     float blur_radius;
@@ -76,6 +100,17 @@ AJSON(TextShadow, offsetx, offsety, blur_radius, color, blend_mode);
 
 struct TextStyle
 {
+    TextStyle()
+    {
+        font_size = 30;
+        color = "#000000ff";
+        is_bold = false;
+        is_italic = false;
+        outline_thickness = 0;
+        outline_thickness_render_scale = 2.0f;
+        outline_color = "#ffffffff";
+    }
+
     // 文字大小
     int font_size;
     // 文字颜色
@@ -125,6 +160,27 @@ AJSON(TextStyle,
 
 struct GenerateConfig
 {
+    GenerateConfig()
+    {
+        use_gpu = true;
+        spacing_horiz = 1;
+        spacing_vert = 1;
+        spacing_glyph_x = 1;
+        spacing_glyph_y = 1;
+        glyph_padding_xadvance = 0;
+        glyph_padding_up = 0;
+        glyph_padding_down = 0;
+        glyph_padding_left = 0;
+        glyph_padding_right = 0;
+        padding_up = 0;
+        padding_down = 0;
+        padding_left = 0;
+        padding_right = 0;
+        is_NPOT = true;
+        is_fully_wrapped_mode = true;
+        max_width = 4096;
+        is_draw_debug = false;
+    }
     // 使用gpu渲染
     bool use_gpu;
     // 输出文件

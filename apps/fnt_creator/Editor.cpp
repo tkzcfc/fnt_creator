@@ -589,12 +589,7 @@ bool Editor::imguiTextShadows(const char* label, std::vector<TextShadow>& shadow
 
     if (ImGui::Button("add shadow"))
     {
-        shadows.push_back(TextShadow{
-            .offsetx = 0,
-            .offsety = 0,
-            .blur_radius = 0.0f,
-            .color = "#ffffffff",
-            });
+        shadows.push_back(TextShadow());
         refresh = true;
     }
 
