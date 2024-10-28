@@ -22,7 +22,7 @@ struct PageConfig
 {
     PageConfig()
     {
-        text = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_=  !\"%&'()*,-./0123456789";
+        text = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!¡í;%:?*()_+-=.,/|\"'@#$^&{}[] ";
     }
     std::string text;
     std::vector<uint32_t> chars;
