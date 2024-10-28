@@ -36,6 +36,11 @@ AJSON(Position, x, y);
 // 线性渐变参数
 struct LinearGradient
 {
+    LinearGradient()
+    {
+        begin = Position{ .x = 0.5f, .y = 1.0f };
+        end = Position{ .x = 0.5f, .y = 0.0f };
+    }
     // 起始位置
     Position begin;
     // 结束位置
@@ -65,9 +70,9 @@ struct TextShadow
     float blur_radius;
     std::string color;
     std::string blend_mode;
-    TextEffect effect;
+    //TextEffect effect;  // 阴影暂时不支持effect
 };
-AJSON(TextShadow, offsetx, offsety, blur_radius, color, blend_mode, effect);
+AJSON(TextShadow, offsetx, offsety, blur_radius, color, blend_mode);
 
 struct TextStyle
 {

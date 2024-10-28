@@ -30,7 +30,9 @@ private:
 
 	bool imguiBlendMode(const char* label, std::string* model);
 
-	bool imguiTextEffect(TextEffect& effect);
+	bool imguiTextEffect(const char* label, TextEffect& effect);
+
+	bool imguiTextShadows(const char* label, std::vector<TextShadow>& shadows);
 
 private:
 

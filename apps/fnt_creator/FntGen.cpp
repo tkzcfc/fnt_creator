@@ -459,7 +459,7 @@ void FntGen::drawGlyphs(const GenerateConfig& config, FntPage& page, SkCanvas* c
                 for (size_t index = 0; index < outlineShadowPaints.size(); ++index)
                 {
                     auto& shadowPaint = outlineShadowPaints[index];
-                    setPaintShader(shadowPaint, config.text_style.outline_shadows[index].effect, drawx, drawy - h, w, h);
+                    //setPaintShader(shadowPaint, config.text_style.outline_shadows[index].effect, drawx, drawy - h, w, h);
                     canvas->drawSimpleText(&glyphInfo.codepoint, sizeof(glyphInfo.codepoint), SkTextEncoding::kUTF32, drawx, drawy, glyphInfo.font, shadowPaint);
                 }
 
@@ -471,7 +471,7 @@ void FntGen::drawGlyphs(const GenerateConfig& config, FntPage& page, SkCanvas* c
             for (size_t index = 0; index < textShadowPaints.size(); ++index)
             {
                 auto& shadowPaint = textShadowPaints[index];
-                setPaintShader(shadowPaint, config.text_style.shadows[index].effect, drawx, drawy - h, w, h);
+                //setPaintShader(shadowPaint, config.text_style.shadows[index].effect, drawx, drawy - h, w, h);
                 canvas->drawSimpleText(&glyphInfo.codepoint, sizeof(glyphInfo.codepoint), SkTextEncoding::kUTF32, drawx, drawy, glyphInfo.font, shadowPaint);
             }
 

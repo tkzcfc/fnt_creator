@@ -382,28 +382,24 @@ void Editor::imguiDraw()
             m_config.output_file = szbuf;
 
 
-        if (ImGui::TreeNode("spacing"))
+        if (ImGui::CollapsingHeader("spacing", ImGuiTreeNodeFlags_DefaultOpen))
         {
             refresh |= ImGui::InputInt("spacing_horiz", &m_config.spacing_horiz);
             refresh |= ImGui::InputInt("spacing_vert", &m_config.spacing_vert);
             refresh |= ImGui::InputInt("spacing_glyph_x", &m_config.spacing_glyph_x);
             refresh |= ImGui::InputInt("spacing_glyph_y", &m_config.spacing_glyph_y);
-
-            ImGui::TreePop();
         }
 
-        if (ImGui::TreeNode("glyph"))
+        if (ImGui::CollapsingHeader("glyph", ImGuiTreeNodeFlags_DefaultOpen))
         {
             refresh |= ImGui::InputInt("glyph_padding_xadvance", &m_config.glyph_padding_xadvance);
             refresh |= ImGui::InputInt("glyph_padding_up", &m_config.glyph_padding_up);
             refresh |= ImGui::InputInt("glyph_padding_down", &m_config.glyph_padding_down);
             refresh |= ImGui::InputInt("glyph_padding_left", &m_config.glyph_padding_left);
             refresh |= ImGui::InputInt("glyph_padding_right", &m_config.glyph_padding_right);
-
-            ImGui::TreePop();
         }
 
-        if (ImGui::TreeNode("texture"))
+        if (ImGui::CollapsingHeader("texture", ImGuiTreeNodeFlags_DefaultOpen))
         {
             refresh |= ImGui::InputInt("padding_up", &m_config.padding_up);
             refresh |= ImGui::InputInt("padding_down", &m_config.padding_down);
@@ -413,8 +409,6 @@ void Editor::imguiDraw()
 
             refresh |= ImGui::Checkbox("is_NPOT", &m_config.is_NPOT);
             refresh |= ImGui::Checkbox("is_fully_wrapped_mode", &m_config.is_fully_wrapped_mode);
-
-            ImGui::TreePop();
         }
 
         ImGui::End();
@@ -424,29 +418,24 @@ void Editor::imguiDraw()
     {
         auto& style = m_config.text_style;
 
-        refresh |= ImGui::InputInt("font_size", &style.font_size);
-        refresh |= imguiColor("color", &style.color);
+        refresh |= ImGui::SliderInt("font_size", &style.font_size, 10, 100);
         refresh |= imguiBlendMode("blend_mode", &style.blend_mode);
-
         refresh |= imguiColor("background_color", &style.background_color);
         refresh |= ImGui::Checkbox("is_bold", &style.is_bold);
         refresh |= ImGui::Checkbox("is_italic", &style.is_italic);
-        refresh |= ImGui::InputInt("outline_thickness", &style.outline_thickness);
-        refresh |= ImGui::DragFloat("outline_thickness_render_scale", &style.outline_thickness_render_scale, 0.05, 0.5, 3.0f);
+        refresh |= imguiColor("color", &style.color);
+        refresh |= imguiTextEffect("effect", style.effect);
+        refresh |= imguiTextShadows("shadows", style.shadows);
+        ImGui::Separator();
+
+        refresh |= ImGui::SliderInt("outline_thickness", &style.outline_thickness, 0, 20);
+        refresh |= ImGui::SliderFloat("outline_thickness_render_scale", &style.outline_thickness_render_scale, 0.5, 3.0f);
         refresh |= imguiColor("outline_color", &style.outline_color);
         refresh |= imguiBlendMode("outline_blend_mode", &style.outline_blend_mode);
+        refresh |= imguiTextEffect("outline_effect", style.outline_effect);
+        refresh |= imguiTextShadows("outline_shadows", style.outline_shadows);
+        ImGui::Separator();
 
-        //blend_mode
-
-
-
-        //refresh |= ImGui::InputInt("padding_down", &m_config.padding_down);
-        //refresh |= ImGui::InputInt("padding_left", &m_config.padding_left);
-        //refresh |= ImGui::InputInt("padding_right", &m_config.padding_right);
-        //refresh |= ImGui::InputInt("max_width", &m_config.max_width);
-
-        //refresh |= ImGui::Checkbox("is_NPOT", &m_config.is_NPOT);
-        //refresh |= ImGui::Checkbox("is_fully_wrapped_mode", &m_config.is_fully_wrapped_mode);
 
         ImGui::End();
     }
@@ -494,29 +483,156 @@ bool Editor::imguiBlendMode(const char* label, std::string* model)
     return false;
 }
 
-bool Editor::imguiTextEffect(TextEffect& effect)
+bool Editor::imguiTextEffect(const char* label, TextEffect& effect)
 {
-    const char* arrEffectType[] = { "none", "linear_gradient" };
-
-    int index = 0;
-    if (effect.effect_type == "linear_gradient")
+    bool refresh = false;
+    if (ImGui::TreeNode(label))
     {
-        index = 1;
+        const char* arrEffectType[] = { "none", "linear_gradient" };
+
+        int index = 0;
+        if (effect.effect_type == "linear_gradient")
+        {
+            index = 1;
+        }
+
+        if (ImGui::Combo("linear_gradient", &index, arrEffectType, IM_ARRAYSIZE(arrEffectType)))
+        {
+            effect.effect_type = arrEffectType[index];
+            refresh = true;
+        }
+
+        if (index == 1)
+        {
+            if (effect.linear_gradient.colors.size() < 2)
+            {
+                refresh = true;
+                while ((effect.linear_gradient.colors.size() < 2))
+                {
+                    effect.linear_gradient.colors.push_back("#ffffffff");
+                    effect.linear_gradient.pos.clear();
+                }
+            }
+
+            // begin
+            float tmpV2[2] = { 0.0f };
+            tmpV2[0] = effect.linear_gradient.begin.x;
+            tmpV2[1] = effect.linear_gradient.begin.y;
+            if (ImGui::SliderFloat2("begin", tmpV2, 0.0f, 1.0f))
+            {
+                refresh = true;
+                effect.linear_gradient.begin.x = tmpV2[0];
+                effect.linear_gradient.begin.y = tmpV2[1];
+            }
+            // end
+            tmpV2[0] = effect.linear_gradient.end.x;
+            tmpV2[1] = effect.linear_gradient.end.y;
+            if (ImGui::SliderFloat2("end", tmpV2, 0.0f, 1.0f))
+            {
+                refresh = true;
+                effect.linear_gradient.end.x = tmpV2[0];
+                effect.linear_gradient.end.y = tmpV2[1];
+            }
+
+            int remove_index = -1;
+            for (size_t i = 0; i < effect.linear_gradient.colors.size(); ++i)
+            {
+                ImGui::PushID(i);
+                refresh |= imguiColor("color", &effect.linear_gradient.colors[i]);
+                if (effect.linear_gradient.colors.size() > 2)
+                {
+                    ImGui::SameLine();
+
+                    SkColor skColor = stringToSkColor(effect.linear_gradient.colors[i]);
+                    float r = SkColorGetR(skColor) / 255.0f;
+                    float g = SkColorGetG(skColor) / 255.0f;
+                    float b = SkColorGetB(skColor) / 255.0f;
+
+                    ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(r, g, b, 0.6f));
+                    ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(r, g, b, 0.7f));
+                    ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(r, g, b, 0.8f));
+                    if (ImGui::Button("remove"))
+                    {
+                        remove_index = (int)i;
+                    }
+                    ImGui::PopStyleColor(3);
+                }
+                ImGui::PopID();
+            }
+            if (remove_index >= 0)
+            {
+                refresh = true;
+                effect.linear_gradient.colors.erase(effect.linear_gradient.colors.begin() + (size_t)remove_index);
+                effect.linear_gradient.pos.clear();
+            }
+
+            if (ImGui::Button("add color"))
+            {
+                refresh = true;
+                effect.linear_gradient.colors.push_back("#ffffffff");
+                effect.linear_gradient.pos.clear();
+            }
+        }
+        ImGui::TreePop();
     }
 
-    bool refresh = false;
+    return refresh;
+}
 
-    if (ImGui::Combo("linear_gradient", &index, arrEffectType, IM_ARRAYSIZE(arrEffectType)))
+bool Editor::imguiTextShadows(const char* label, std::vector<TextShadow>& shadows)
+{
+    bool refresh = false;
+    ImGui::PushID(label);
+
+    if (ImGui::Button("add shadow"))
     {
-        effect.effect_type = arrEffectType[index];
+        shadows.push_back(TextShadow{
+            .offsetx = 0,
+            .offsety = 0,
+            .blur_radius = 0.0f,
+            .color = "#ffffffff",
+            });
         refresh = true;
     }
 
-    if (index == 1)
+    if (ImGui::BeginTabBar(label))
     {
-        ImGui::InputFloat2("begin", &effect.linear_gradient.begin.x);
-        ImGui::InputFloat2("end", &effect.linear_gradient.end.x);
-    }
+        int remove_index = -1;
+        size_t index = 0;
+        for (auto& shadow : shadows)
+        {
+            index++;
+            auto name = stringFormat("shadow_%d", (int)index);
+            if (ImGui::BeginTabItem(name.c_str()))
+            {
+                ImGui::PushID(index);
+                ImGui::Text(name.c_str());
+                ImGui::SameLine();
+                if (ImGui::Button("remove"))
+                {
+                    remove_index = int(index - 1);
+                }
 
+                refresh |= ImGui::DragInt("offsetx", &shadow.offsetx);
+                refresh |= ImGui::DragInt("offsety", &shadow.offsety);
+                refresh |= ImGui::DragFloat("blur_radius", &shadow.blur_radius);
+                refresh |= imguiColor("color", &shadow.color);
+                refresh |= imguiBlendMode("blend_mode", &shadow.blend_mode);
+                //refresh |= imguiTextEffect("effect", shadow.effect);
+
+                ImGui::PopID();
+                ImGui::EndTabItem();
+            }
+        }
+
+        if (remove_index != -1)
+        {
+            shadows.erase(shadows.begin() + remove_index);
+            refresh = true;
+        }
+
+        ImGui::EndTabBar();
+    }
+    ImGui::PopID();
     return refresh;
 }
