@@ -1,0 +1,66 @@
+{
+    "use_gpu": true,
+    "output_file": "out.fnt",
+
+    "spacing_horiz": 0,
+    "spacing_vert": 0,
+
+    "spacing_glyph_x": 1,
+    "spacing_glyph_y": 1,
+
+    "glyph_padding_xadvance": 15,
+    "glyph_padding_left": 30,
+    "glyph_padding_right": 30,
+    "glyph_padding_up": 30,
+    "glyph_padding_down": 30,
+
+    "padding_left": 0,
+    "padding_right": 0,
+    "padding_up": 0,
+    "padding_down": 0,
+    "is_NPOT": false,
+    "is_fully_wrapped_mode": true,
+    "max_width": 4096,
+
+    "is_draw_debug": false,
+
+    "text_style": {
+        "font_size": 40,
+        "color": "#FFFFFFFF",
+        "background_color": "",
+        "is_italic": false,
+        "outline_thickness": 5,
+        "outline_thickness_render_scale": 2,
+        "outline_color": "#ffffffff",
+        "outline_effect": {
+            "effect_type": "linear_gradient",
+            "linear_gradient": {
+                "begin": {"x":0, "y": 1},
+                "end": {"x": 1, "y": 1},
+                "colors": ["#741DE7FF", "#E44D1FFF", "#F21A14FF"],
+                "pos": []
+            }
+        },
+        "outline_shadows": [
+            { "offsetx": 0 , "offsety": 0 , "blur_radius": 5,"color": "#FF00FFFF" },
+            { "offsetx": 0 , "offsety": 0 , "blur_radius": 10,"color": "#FF00FFFF" },
+            { "offsetx": 0 , "offsety": 0 , "blur_radius": 15,"color": "#FF00FFFF" },
+
+            { "offsetx": 0 , "offsety": 0 , "blur_radius": 5,"color": "#FF00FFFF" },
+            { "offsetx": 0 , "offsety": 0 , "blur_radius": 10,"color": "#FF00FFFF" },
+            { "offsetx": 0 , "offsety": 0 , "blur_radius": 15,"color": "#FF00FFFF" },
+
+            { "offsetx": 0 , "offsety": 0 , "blur_radius": 5,"color": "#FF00FFFF" },
+            { "offsetx": 0 , "offsety": 0 , "blur_radius": 10,"color": "#FF00FFFF" },
+            { "offsetx": 0 , "offsety": 0 , "blur_radius": 15,"color": "#FF00FFFF" }
+        ]
+    },
+
+    "pages": [
+        {
+            "text": "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_=  !\"%&'()*,-./0123456789:;?ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]_`abcdefghijklmnopqrstuvwxyz{}¡º¿ÁàáâãçèéêìíñòóôõùúýăĐđĩũơự̃АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЫЬЭЮЯабвгдежзийклмнопрстуфхцчшщыьэюяё।ঁংঃঅআইউএওকখগঘঙচছজঞটঠডণতথদধনপফবভমযরলশষসহ়ািীুূৃেৈোৌ্ৎ৷กขคฆงจฉชซญฎฏฑณดตถทธนบปผฝพฟภมยรฤลวศษสหอะัาำิีึืุูเแโใไๆ็่้๋์ကခဂငစဆဇဉညဏတထဒဓနပဖဗဘမယရလဝသဟအဤဥဦဧါာိီုူေဲံ့း္်ျြွှဿ၀၊။၍၎၏ạẢảấầẩẫậắằẵặẻẽẾếềểễệỉịọỏốồổỗộớờởợụủứừửữỰựỳỹ™Ⅱ、。一万三上下不与专且业丛东丝两个中丰临为主久么之乐也了争二于五交亨享人什今仍从仔他付仙代以们件任优会传位何余佛作你佣使例侠便促保信倍倒值偷储像儿元充先克兑兔入全公共关其具内册再写冬冰冲况冻凤凰出击分切划列则刚创利别到制前剑力功加务动励勇勒包匹区升午华单卡印即厅历厚原去参又及友双反发取受变古只叫可台号合吉同名后向吒否吧启员周和咨哥哦哪唐啸喜嘴器回因国图圆圣在地址型埃城塞填墨声备复外多大天太失头奇奖奥女好如妖始姓娱娲子孔字存孙完定宝实审客室宫家容密富对寺导寿封将小少尔尤尼层属山川工巨已巴币布帝帮常平年并幸广库应庞废度座建开异弊式张弥当录彩待很律得心必忍忘快态思性总恒恭息悉悟您情惠意愿憾戏成我或截户所手才打扣找技投折护报抱押拉拒招择持挖捕换据掘接推提搜摄摘操支收放政效救敢数整文斗斯新方旋族无日时明易星春是昵显晋晰暴更最月有朋服朝未本术机杀权束条来极林果查树核根格案桑检森次欢款歉正此步每永求汗江沙没河法波注泰洗洲活派济海消深清渠温游湖湾滚满漠漫火灯炮点烈热焰照熊燕爆片版牛物特状狂狮狼猎猪猫猴王玩现珍珠球理甜生用由甲申男界留略疑登白百的皇盆益盗盘相看眼知短石矿码确示礼社祝神禁福离秋种秒秘称稍究空立端竹笔符笼等策签算箱类精系索紧累繁红级纪纳线组细终经绑结给络绝统续维绸绿网罗置美老考者耐耗联聚胜胡能脉脸腾自至致舞色节花英范荐莲获营蓄藏虎虫蛮蜜蝙蝠行街表袋被西要见观规解触警计订认记设访证识试询该详误说请谅象豪豹贝财责败账费资赏赐赔赚赛赠赢赶起超足路踏车转轮软输辛辣达过迎运近返还这进远违连追退送选通速造道遗邀邮部配采里重野量金钟钱钻银链销错锣锦镜长门闭问间闹际降限除险雀集雨雳雷需霆霸霹非靠面音项须领频题额风飓飞首馨马验高魔鱼鲤鸣鹰麻黄鼓鼠龙龟！，：？",
+            "fonts": [
+            ]
+        }
+    ]
+}

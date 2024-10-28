@@ -1,0 +1,75 @@
+{
+    "output_file": "out.fnt",
+
+    "spacing_horiz": 0,
+    "spacing_vert": 0,
+
+    "spacing_glyph_x": 1,
+    "spacing_glyph_y": 1,
+
+    "glyph_padding_left": 15,
+    "glyph_padding_right": 15,
+    "glyph_padding_up": 15,
+    "glyph_padding_down": 15,
+
+    "padding_left": 0,
+    "padding_right": 0,
+    "padding_up": 0,
+    "padding_down": 0,
+    "is_NPOT": true,
+    "is_fully_wrapped_mode": true,
+    "max_width": 2048,
+
+    "is_draw_debug": false,
+
+    "text_style": {
+        "font_size": 40,
+        "color": "#000000FF",
+        "shadows": [
+            { "offsetx": 1 , "offsety": 1 , "blur_radius": 0,"color": "#000000ff" },
+            { "offsetx": 2 , "offsety": 2 , "blur_radius": 0,"color": "#111111ff" },
+            { "offsetx": 3 , "offsety": 3 , "blur_radius": 0,"color": "#222222ff" },
+            { "offsetx": 4 , "offsety": 4 , "blur_radius": 0,"color": "#333333ff" },
+            { "offsetx": 5 , "offsety": 5 , "blur_radius": 0,"color": "#444444ff" },
+            { "offsetx": 6 , "offsety": 6 , "blur_radius": 0,"color": "#555555ff" },
+            { "offsetx": 7 , "offsety": 7 , "blur_radius": 0,"color": "#666666ff" },
+            { "offsetx": 8 , "offsety": 8 , "blur_radius": 0,"color": "#777777ff" },
+            { "offsetx": 9 , "offsety": 9 , "blur_radius": 0,"color": "#888888ff" }
+        ],
+        "effect": {
+            "effect_type": "none",
+            "linear_gradient": {
+                "begin": {"x": 0.5, "y": 0},
+                "end": {"x": 0.5, "y": 1},
+                "colors": ["#E30AFFFF", "#DBFFE6FF", "#0000FFFF"],
+                "pos": [0, 0.8, 1]
+            }
+        },
+        "background_color": "",
+        "is_bold": true,
+        "is_italic": false,
+        "outline_thickness": 0,
+        "outline_thickness_render_scale": 1,
+        "outline_color": "#ffffffff",
+        "outline_effect": {
+            "effect_type": "none",
+            "linear_gradient": {
+                "begin": {"x":0, "y": 0},
+                "end": {"x": 1, "y": 1},
+                "colors": ["#8F1FFFFF", "#FF00FFFF"],
+                "pos": [0, 1]
+            }
+        }
+    },
+
+    "pages": [
+        {
+            
+            "text": "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_= ",
+            "fonts": [
+            ]
+        }
+    ]
+}
+
+
