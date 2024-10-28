@@ -546,6 +546,9 @@ void FntGen::drawGlyphs(const GenerateConfig& config, FntPage& page, SkCanvas* c
 
 bool FntGen::saveFont(const GenerateConfig& config)
 {
+    if (m_isEditorMode)
+        return true;
+
     FILE* f;
     errno_t e = fopen_s(&f, stringFormat("%s.fnt", m_outFileName.c_str()).c_str(), "wb");
     if (e != 0 || f == 0)

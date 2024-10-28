@@ -9,6 +9,7 @@
 
 const char* templateConfigStr = R"(
 {
+    "use_gpu": true,
     "output_file": "out.fnt",
 
     "spacing_horiz": 0,
@@ -36,7 +37,7 @@ const char* templateConfigStr = R"(
     "text_style": {
         "font_size": 40,
         "color": "#FFFFFFFF",
-        "background_color": "",
+        "background_color": "#CE626232",
         "is_italic": false,
         "outline_thickness": 5,
         "outline_thickness_render_scale": 2,
@@ -44,10 +45,10 @@ const char* templateConfigStr = R"(
         "outline_effect": {
             "effect_type": "linear_gradient",
             "linear_gradient": {
-                "begin": {"x":0, "y": 0},
+                "begin": {"x":0, "y": 1},
                 "end": {"x": 1, "y": 1},
-                "colors": ["#8F1FFFFF", "#FF00FFFF"],
-                "pos": [0, 1]
+                "colors": ["#741DE7FF", "#E44D1FFF", "#F21A14FF"],
+                "pos": []
             }
         },
         "outline_shadows": [
@@ -131,7 +132,7 @@ GenerateConfig readConfig(const std::string& filename)
 int main(int argc, char* const argv[]) 
 {
     bool showGUI = false;
-    std::string configFileName = "config.json";
+    std::string configFileName;
     if (argc > 1)
     {
         configFileName = argv[1];

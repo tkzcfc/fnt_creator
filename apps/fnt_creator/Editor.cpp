@@ -180,9 +180,6 @@ int Editor::run(const GenerateConfig& config)
 
 bool Editor::init()
 {
-    m_gen = std::make_unique<FntGen>();
-    m_gen->setEditorMode(true);
-
     do
     {
         m_img_shader = std::make_unique<Shader>();
@@ -237,6 +234,9 @@ bool Editor::init()
 
         m_VAO = VAO;
         m_VBO = VBO;
+
+        m_gen = std::make_unique<FntGen>();
+        m_gen->setEditorMode(true);
 
         return true;
     } while (false);
@@ -373,6 +373,9 @@ void Editor::imguiDraw()
 
     if(ImGui::Begin("General"))
     {
+        if(m_texture)
+            ImGui::Text("%d x %d", m_texture->width(), m_texture->height());
+
         refresh |= ImGui::Checkbox("use_gpu", &m_config.use_gpu);
         refresh |= ImGui::Checkbox("is_draw_debug", &m_config.is_draw_debug);
 
@@ -445,7 +448,7 @@ void Editor::imguiDraw()
         m_needReRender = true;
     }
 
-    ImGui::ShowDemoWindow();
+    //ImGui::ShowDemoWindow();
 }
 
 bool Editor::imguiColor(const char* label, std::string* color)

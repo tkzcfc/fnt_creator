@@ -75,7 +75,7 @@ public:
         glAttachShader(ID, vertex);
         glAttachShader(ID, fragment);
         glLinkProgram(ID);
-        if (!checkCompileErrors(fragment, "PROGRAM"))
+        if (!checkCompileErrors(ID, "PROGRAM"))
             return false;
 
         glDeleteShader(vertex);
@@ -132,7 +132,7 @@ private:
 
     bool checkCompileErrors(unsigned int shader, std::string type)
     {
-        int success;
+        int success = 0;
         char infoLog[1024];
         if (type != "PROGRAM")
         {
