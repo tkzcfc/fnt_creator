@@ -8,7 +8,7 @@
     "spacing_glyph_x": 1,
     "spacing_glyph_y": 1,
 
-    "glyph_padding_xadvance": 0,
+    "glyph_padding_xadvance": 2,
     "glyph_padding_left": 0,
     "glyph_padding_right": 0,
     "glyph_padding_up": 0,

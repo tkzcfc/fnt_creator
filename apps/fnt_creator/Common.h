@@ -167,7 +167,9 @@ struct GenerateConfig
         spacing_vert = 1;
         spacing_glyph_x = 1;
         spacing_glyph_y = 1;
+        line_height_padding_adcance = 0;
         glyph_padding_xadvance = 0;
+        glyph_padding_yadvance = 0;
         glyph_padding_up = 0;
         glyph_padding_down = 0;
         glyph_padding_left = 0;
@@ -195,8 +197,13 @@ struct GenerateConfig
     // 生成图片时单个文字与单个文字之间Y轴的间距
     int spacing_glyph_y;
 
+    // 行高调整
+    int line_height_padding_adcance;
+
     // 单个文字 xadvance 增加距离
     int glyph_padding_xadvance;
+    // 单个文字 yadvance 增加距离
+    int glyph_padding_yadvance;
 
     // 单个文字距离顶部间距
     int glyph_padding_up;
@@ -237,7 +244,9 @@ AJSON(GenerateConfig,
     spacing_vert,
     spacing_glyph_x,
     spacing_glyph_y,
+    line_height_padding_adcance,
     glyph_padding_xadvance,
+    glyph_padding_yadvance,
     glyph_padding_up,
     glyph_padding_down,
     glyph_padding_left,

@@ -67,7 +67,7 @@ bool FntGen::run(const GenerateConfig& config)
     m_fntInfo.spacingHoriz = config.spacing_horiz;
     m_fntInfo.spacingVert = config.spacing_vert;
     m_fntInfo.outlineThickness = config.text_style.outline_thickness;
-    m_fntInfo.commonLineHeight = config.text_style.font_size + config.text_style.outline_thickness * 2 + config.glyph_padding_up + config.glyph_padding_down;
+    m_fntInfo.commonLineHeight = config.text_style.font_size + config.text_style.outline_thickness * 2 + config.glyph_padding_up + config.glyph_padding_down + config.line_height_padding_adcance;
     m_fntInfo.base = config.text_style.font_size;
     m_fntInfo.pages.clear();
 
@@ -507,6 +507,9 @@ void FntGen::drawGlyphs(const GenerateConfig& config, FntPage& page, SkCanvas* c
 
         x += glyphRealWidth;
         x += config.spacing_glyph_x;
+
+        glyphInfo.yoffset += config.glyph_padding_yadvance;
+        glyphInfo.yoffset += config.line_height_padding_adcance;
 
         if (config.is_fully_wrapped_mode)
         {

@@ -16,7 +16,7 @@
     "padding_right": 0,
     "padding_up": 0,
     "padding_down": 0,
-    "is_NPOT": true,
+    "is_NPOT": false,
     "is_fully_wrapped_mode": true,
     "max_width": 2048,
 
@@ -24,7 +24,7 @@
 
     "text_style": {
         "font_size": 40,
-        "color": "#000000FF",
+        "color": "#DDDDDDFF",
         "shadows": [
             { "offsetx": 0 , "offsety": 0 , "blur_radius": 4,"color": "#00ffffff" },
             { "offsetx": 0 , "offsety": 0 , "blur_radius": 8,"color": "#00ffffff" },
@@ -40,7 +40,7 @@
             }
         },
         "background_color": "",
-        "is_bold": true,
+        "is_bold": false,
         "is_italic": false,
         "outline_thickness": 0,
         "outline_thickness_render_scale": 1,
@@ -61,6 +61,7 @@
             
             "text": "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_= ",
             "fonts": [
+				"./FingerpopGap.ttf"
             ]
         }
     ]

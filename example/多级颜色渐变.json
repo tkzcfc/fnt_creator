@@ -3,6 +3,11 @@
 
     "spacing_horiz": 0,
     "spacing_vert": 0,
+	
+    "glyph_padding_left": 5,
+    "glyph_padding_right": 5,
+    "glyph_padding_up": 5,
+    "glyph_padding_down": 5,
 
     "spacing_glyph_x": 20,
     "spacing_glyph_y": 20,
@@ -48,10 +53,9 @@
 
     "pages": [
         {
-            
-            "text": "中国Image Tiếng Việt हिन्दी 한국어",
+            "text": "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_= ",
             "fonts": [
-                "./FZY4JW.TTF"
+                "./Scissor Cuts.TTF"
             ]
         }
     ]

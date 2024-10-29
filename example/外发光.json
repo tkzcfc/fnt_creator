@@ -7,6 +7,9 @@
     "spacing_glyph_x": 1,
     "spacing_glyph_y": 1,
 
+	"line_height_padding_adcance": -60,
+    "glyph_padding_yadvance": 30,
+    "glyph_padding_xadvance": 15,
     "glyph_padding_left": 30,
     "glyph_padding_right": 30,
     "glyph_padding_up": 30,
@@ -17,7 +20,7 @@
     "padding_up": 0,
     "padding_down": 0,
     "is_NPOT": true,
-    "is_fully_wrapped_mode": true,
+    "is_fully_wrapped_mode": false,
     "max_width": 2048,
 
     "is_draw_debug": false,

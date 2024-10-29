@@ -23,8 +23,8 @@
     "is_draw_debug": false,
 
     "text_style": {
-        "font_size": 40,
-        "color": "#000000FF",
+        "font_size": 50,
+        "color": "#FFFFFFFF",
         "shadows": [
             { "offsetx": 1 , "offsety": 1 , "blur_radius": 0,"color": "#000000ff" },
             { "offsetx": 2 , "offsety": 2 , "blur_radius": 0,"color": "#111111ff" },
@@ -67,6 +67,7 @@
             
             "text": "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_= ",
             "fonts": [
+				"./Schwarzwald.ttf"
             ]
         }
     ]
