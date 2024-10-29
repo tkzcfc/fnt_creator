@@ -1,4 +1,4 @@
-#include "Editor.h"
+ï»¿#include "Editor.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -96,7 +96,7 @@ int Editor::run(const GenerateConfig& config)
         return -1;
     }
 
-    // »ñÈ¡´°¿ÚÄÚÈİµÄËõ·ÅÏµÊı
+    // è·å–çª—å£å†…å®¹çš„ç¼©æ”¾ç³»æ•°
     float xscale, yscale;
     glfwGetWindowContentScale(window, &xscale, &yscale);
     xscale = std::min(xscale, 1.0f);
@@ -121,10 +121,10 @@ int Editor::run(const GenerateConfig& config)
         m_screenSize.x = (float)display_w;
         m_screenSize.y = (float)display_h;
 
-        // Éè¼Æ·Ö±æÂÊ
+        // è®¾è®¡åˆ†è¾¨ç‡
         glm::vec2 designResolutionSize = m_screenSize;
 #if 0
-        // Ä£ÄâÉè¼Æ·Ö±æÂÊºÍÊµ¼ÊÆÁÄ»²»Ò»Ñù´óĞ¡
+        // æ¨¡æ‹Ÿè®¾è®¡åˆ†è¾¨ç‡å’Œå®é™…å±å¹•ä¸ä¸€æ ·å¤§å°
         designResolutionSize.x *= 2.0f;
         designResolutionSize.y *= 2.0f;
 #else
@@ -190,7 +190,7 @@ bool Editor::init()
         m_texture->initWithFile("loading.png");
 
         float vertices[] = {
-            // Î»ÖÃ (aPos)   // ÎÆÀí×ø±ê (aTexCoord)
+            // ä½ç½® (aPos)   // çº¹ç†åæ ‡ (aTexCoord)
             -0.5f,  0.5f,    0.0f, 1.0f,
             -0.5f, -0.5f,    0.0f, 0.0f,
              0.5f, -0.5f,    1.0f, 0.0f,
@@ -208,21 +208,21 @@ bool Editor::init()
 
         glBindVertexArray(VAO);
 
-        // °ó¶¨²¢ÉèÖÃ VBO
+        // ç»‘å®šå¹¶è®¾ç½® VBO
         glBindBuffer(GL_ARRAY_BUFFER, VBO);
         glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_DYNAMIC_DRAW);
 
-        // °ó¶¨²¢ÉèÖÃ EBO£¨Ë÷Òı»º³å¶ÔÏó£©
+        // ç»‘å®šå¹¶è®¾ç½® EBOï¼ˆç´¢å¼•ç¼“å†²å¯¹è±¡ï¼‰
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
-        //glVertexAttribPointer£º
-        //    µÚÒ»¸ö²ÎÊı£º×ÅÉ«Æ÷ÖĞ layout(location = n) µÄÎ»ÖÃ¡£
-        //    µÚ¶ş¸ö²ÎÊı£ºÃ¿¸öÊôĞÔµÄÊı¾İ¸öÊı£¨vec2 ÊÇ 2£©¡£
-        //    µÚÈı¸ö²ÎÊı£ºÊı¾İÀàĞÍ£¨GL_FLOAT£©¡£
-        //    µÚËÄ¸ö²ÎÊı£ºÊÇ·ñĞèÒª¹éÒ»»¯£¨ÕâÀïÌî GL_FALSE£©¡£
-        //    µÚÎå¸ö²ÎÊı£º²½³¤£¨Ã¿¸ö¶¥µãµÄ×Ö½Ú´óĞ¡£©¡£
-        //    µÚÁù¸ö²ÎÊı£ºÊı¾İÆ«ÒÆÁ¿£¨ÔÚ¶¥µãÊı¾İÊı×éÖĞµÄÆğÊ¼Î»ÖÃ£©¡£
+        //glVertexAttribPointerï¼š
+        //    ç¬¬ä¸€ä¸ªå‚æ•°ï¼šç€è‰²å™¨ä¸­ layout(location = n) çš„ä½ç½®ã€‚
+        //    ç¬¬äºŒä¸ªå‚æ•°ï¼šæ¯ä¸ªå±æ€§çš„æ•°æ®ä¸ªæ•°ï¼ˆvec2 æ˜¯ 2ï¼‰ã€‚
+        //    ç¬¬ä¸‰ä¸ªå‚æ•°ï¼šæ•°æ®ç±»å‹ï¼ˆGL_FLOATï¼‰ã€‚
+        //    ç¬¬å››ä¸ªå‚æ•°ï¼šæ˜¯å¦éœ€è¦å½’ä¸€åŒ–ï¼ˆè¿™é‡Œå¡« GL_FALSEï¼‰ã€‚
+        //    ç¬¬äº”ä¸ªå‚æ•°ï¼šæ­¥é•¿ï¼ˆæ¯ä¸ªé¡¶ç‚¹çš„å­—èŠ‚å¤§å°ï¼‰ã€‚
+        //    ç¬¬å…­ä¸ªå‚æ•°ï¼šæ•°æ®åç§»é‡ï¼ˆåœ¨é¡¶ç‚¹æ•°æ®æ•°ç»„ä¸­çš„èµ·å§‹ä½ç½®ï¼‰ã€‚
         // a_position
         glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
         glEnableVertexAttribArray(0);
@@ -322,19 +322,19 @@ void Editor::openglDraw()
         glm::mat4 MVP = projectionMatrix * viewMatrix * modelMatrix;
         m_img_shader->setMat4("u_MVPMatrix", MVP);
         
-        // ¼¤»îÎÆÀíµ¥Ôª 0£¬²¢°ó¶¨ÎÆÀí
+        // æ¿€æ´»çº¹ç†å•å…ƒ 0ï¼Œå¹¶ç»‘å®šçº¹ç†
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, m_texture->texture_id());
         m_img_shader->setInt("u_tex0", 0);
 
-        // uv y·­×ª¹ı
+        // uv yç¿»è½¬è¿‡
         float updatedVertices[] = {
-            0.0f,  h,  0.0f, 0.0f,  // ×óÉÏ
-            0.0f, 0.0f,  0.0f, 1.0f,  // ×óÏÂ
-            w, 0.0f,  1.0f, 1.0f,  // ÓÒÏÂ
-            w, h,  1.0f, 0.0f   // ÓÒÉÏ
+            0.0f,  h,  0.0f, 0.0f,  // å·¦ä¸Š
+            0.0f, 0.0f,  0.0f, 1.0f,  // å·¦ä¸‹
+            w, 0.0f,  1.0f, 1.0f,  // å³ä¸‹
+            w, h,  1.0f, 0.0f   // å³ä¸Š
         };
-        // °ó¶¨ VBO ²¢¸üĞÂÊı¾İ
+        // ç»‘å®š VBO å¹¶æ›´æ–°æ•°æ®
         glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
         glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(updatedVertices), updatedVertices);
 

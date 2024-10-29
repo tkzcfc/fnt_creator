@@ -1,4 +1,4 @@
-#include "FntGen.h"
+ï»¿#include "FntGen.h"
 #include "Utils.h"
 #include "Clock.h"
 
@@ -18,8 +18,8 @@
 #include <GLFW/glfw3.h>
 #include <assert.h>
 
-// is_fully_wrapped_mode == falseÊ±
-// ¿ªÆôÖ®ºó µ×²¿»ù×¼ÏßÒÔÊµ¼ÊÎÄ×Ö¶ÔÆë£¬¹Ø±ÕÔòÒÔÎÄ×ÖÃè±ß¶ÔÆë
+// is_fully_wrapped_mode == falseæ—¶
+// å¼€å¯ä¹‹å åº•éƒ¨åŸºå‡†çº¿ä»¥å®é™…æ–‡å­—å¯¹é½ï¼Œå…³é—­åˆ™ä»¥æ–‡å­—æè¾¹å¯¹é½
 #define BASE_IN_REAL_TEXT_BOTTOM 1
 
 FntGen::FntGen()
@@ -75,20 +75,20 @@ bool FntGen::run(const GenerateConfig& config)
     {
         Clock clock;
 
-        // Æ¥Åä×ÖÌå
+        // åŒ¹é…å­—ä½“
         matchFont(config);
 
         clock.update();
         printf("match font time: %.2fs(%dms)\n", clock.getDeltaTimeInSecs(), (int)clock.getDeltaTime());
 
-        // Éú³ÉÍ¼Æ¬
+        // ç”Ÿæˆå›¾ç‰‡
         if (!draw(config))
             break;
 
         clock.update();
         printf("draw text time: %.2fs(%dms)\n", clock.getDeltaTimeInSecs(), (int)clock.getDeltaTime());
 
-        // ±£´æ×ÖÌå
+        // ä¿å­˜å­—ä½“
         if (!saveFont(config))
             break;
 
@@ -103,7 +103,7 @@ bool FntGen::run(const GenerateConfig& config)
 
 void FntGen::matchFont(const GenerateConfig& config)
 {
-    // »ñÈ¡ÏµÍ³Ä¬ÈÏµÄ×ÖÌå¹ÜÀíÆ÷
+    // è·å–ç³»ç»Ÿé»˜è®¤çš„å­—ä½“ç®¡ç†å™¨
     sk_sp<SkFontMgr> fontMgr = SkFontMgr::RefDefault();
     for (size_t i = 0; i < config.pages.size(); ++i)
     {
@@ -205,7 +205,7 @@ void FntGen::initPageData(const GenerateConfig& config, FntPage& page, int pageI
     else
         page.fileName = stringFormat("%s.png", m_outFileName.c_str());
 
-    // ¼ÆËã×îÊÊºÏµÄ×î´ó¿í¶È
+    // è®¡ç®—æœ€é€‚åˆçš„æœ€å¤§å®½åº¦
     int maxWidth = 0;
     for (int x = 2;;)
     {
@@ -234,7 +234,7 @@ void FntGen::initPageData(const GenerateConfig& config, FntPage& page, int pageI
     if (maxWidth > config.max_width)
         maxWidth = config.max_width;
 
-    // ¼ÆËã±¾Ò³¿í¸ß
+    // è®¡ç®—æœ¬é¡µå®½é«˜
     page.width = maxWidth;
     page.height = calculateHeight(page, config, maxWidth);
 }
@@ -245,7 +245,7 @@ bool FntGen::drawPage(const GenerateConfig& config, FntPage& page)
 
     if (useGPU && config.use_gpu)
     {
-        // ²éÑ¯×î´óÎÆÀí³ß´ç
+        // æŸ¥è¯¢æœ€å¤§çº¹ç†å°ºå¯¸
         GLint maxTextureSize = 0;
         glGetIntegerv(GL_MAX_TEXTURE_SIZE, &maxTextureSize);
         if (page.width > maxTextureSize || page.height > maxTextureSize)
@@ -259,12 +259,12 @@ bool FntGen::drawPage(const GenerateConfig& config, FntPage& page)
         useGPU = false;
     }
 
-    // Ê¹ÓÃGPUäÖÈ¾
+    // ä½¿ç”¨GPUæ¸²æŸ“
     if (useGPU)
     {
         std::cout << "Rendering with GPU (Opengl)" << std::endl;
 
-        // ÖØÖÃ OpenGL ×´Ì¬
+        // é‡ç½® OpenGL çŠ¶æ€
         m_context->resetContext(kAll_GrBackendState);
 
 
@@ -273,22 +273,22 @@ bool FntGen::drawPage(const GenerateConfig& config, FntPage& page)
         glGenFramebuffers(1, &fbo);
         glBindFramebuffer(GL_FRAMEBUFFER, fbo);
 
-        // ÇåÀí¸÷ÖÖ»º³åÇø
+        // æ¸…ç†å„ç§ç¼“å†²åŒº
         glEnable(GL_DEPTH_TEST);
         glEnable(GL_STENCIL_TEST);
-        glClearColor(1.0f, 1.0f, 1.0f, 0.0f);  // ÑÕÉ«»º³åÇøÇåÎªÍ¸Ã÷ºÚÉ«
-        glClearDepth(1.0f);                    // Éî¶È»º³åÇøÇåÎª1.0£¨×îÔ¶£©
-        glClearStencil(0);                     // Ä£°å»º³åÇøÇåÎª0
+        glClearColor(1.0f, 1.0f, 1.0f, 0.0f);  // é¢œè‰²ç¼“å†²åŒºæ¸…ä¸ºé€æ˜é»‘è‰²
+        glClearDepth(1.0f);                    // æ·±åº¦ç¼“å†²åŒºæ¸…ä¸º1.0ï¼ˆæœ€è¿œï¼‰
+        glClearStencil(0);                     // æ¨¡æ¿ç¼“å†²åŒºæ¸…ä¸º0
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
-        // ´´½¨ÓÃÓÚÀëÆÁäÖÈ¾µÄÎÆÀí
+        // åˆ›å»ºç”¨äºç¦»å±æ¸²æŸ“çš„çº¹ç†
         glGenTextures(1, &texture);
         glBindTexture(GL_TEXTURE_2D, texture);
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, page.width, page.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-        // ½«ÎÆÀí¸½¼Óµ½ FBO
+        // å°†çº¹ç†é™„åŠ åˆ° FBO
         glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texture, 0);
 
         if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
@@ -395,25 +395,25 @@ void FntGen::drawGlyphs(const GenerateConfig& config, FntPage& page, SkCanvas* c
 {
     canvas->clear(stringToSkColor(config.text_style.background_color));
 
-    // Ãè±ßÒõÓ°»­±Ê
+    // æè¾¹é˜´å½±ç”»ç¬”
     std::vector<SkPaint> outlineShadowPaints = createShadowPaints(config.text_style.outline_shadows);
-    // ÎÄ×ÖÃè±ß»­±Ê
+    // æ–‡å­—æè¾¹ç”»ç¬”
     SkPaint outlinePaint = createPaint(config.text_style.outline_color, config.text_style.outline_blend_mode);
     outlinePaint.setStyle(SkPaint::kStroke_Style);
     outlinePaint.setStrokeWidth(config.text_style.outline_thickness <= 0 ? 1 : config.text_style.outline_thickness * config.text_style.outline_thickness_render_scale);
 
-    // Ãè±ßÒõÓ°»­±Ê
+    // æè¾¹é˜´å½±ç”»ç¬”
     std::vector<SkPaint> textShadowPaints = createShadowPaints(config.text_style.shadows);
-    // ÎÄ×Ö»­±Ê
+    // æ–‡å­—ç”»ç¬”
     SkPaint textPaint = createPaint(config.text_style.color, config.text_style.blend_mode);
 
-    // µ÷ÊÔ»­±Ê
+    // è°ƒè¯•ç”»ç¬”
     SkPaint debugPaint;
-    debugPaint.setAntiAlias(true);                // ¿ªÆô¿¹¾â³İ
-    debugPaint.setStyle(SkPaint::kStroke_Style);  // ÉèÖÃÎªÃè±ßÄ£Ê½
-    debugPaint.setStrokeWidth(1);                 // ÉèÖÃÃè±ß¿í¶È
+    debugPaint.setAntiAlias(true);                // å¼€å¯æŠ—é”¯é½¿
+    debugPaint.setStyle(SkPaint::kStroke_Style);  // è®¾ç½®ä¸ºæè¾¹æ¨¡å¼
+    debugPaint.setStrokeWidth(1);                 // è®¾ç½®æè¾¹å®½åº¦
 
-    // ×Ö·ûÔö¼ÓµÄ¿í¸ß
+    // å­—ç¬¦å¢åŠ çš„å®½é«˜
     int glyhMargin = config.text_style.outline_thickness;
 
     int x = config.padding_left;
@@ -421,11 +421,11 @@ void FntGen::drawGlyphs(const GenerateConfig& config, FntPage& page, SkCanvas* c
     int maxHeight = 0;
     for (auto& glyphInfo : page.glyphs)
     {
-        // ×Ö·û¿í¸ß£¨×Ö·û¿í¸ß+Ãè±ß´óĞ¡£©
+        // å­—ç¬¦å®½é«˜ï¼ˆå­—ç¬¦å®½é«˜+æè¾¹å¤§å°ï¼‰
         int glyphWidth = glyphInfo.width + glyhMargin * 2;
         int glyphHeight = glyphInfo.height + glyhMargin * 2;
 
-        // ×Ö·ûÊµ¼Ê¿í¸ß£¨°üÀ¨×Ö·ûÔ¤Áô¾àÀë£©
+        // å­—ç¬¦å®é™…å®½é«˜ï¼ˆåŒ…æ‹¬å­—ç¬¦é¢„ç•™è·ç¦»ï¼‰
         int glyphRealWidth = glyphWidth + config.glyph_padding_left + config.glyph_padding_right;
         int glyphRealHeight = glyphHeight + config.glyph_padding_up + config.glyph_padding_down;
 
@@ -444,7 +444,7 @@ void FntGen::drawGlyphs(const GenerateConfig& config, FntPage& page, SkCanvas* c
 
         //printf("x:%d,y:%d, w:%d,h:%d  xoffset:%d,yoffset:%d  xadvance:%d\n", glyphInfo.x, glyphInfo.y, glyphInfo.width, glyphInfo.height, glyphInfo.xoffset, glyphInfo.yoffset, glyphInfo.xadvance);
 
-        // »æÖÆÏà¹ØÂß¼­
+        // ç»˜åˆ¶ç›¸å…³é€»è¾‘
         {
             SkScalar drawx = x + glyhMargin + config.glyph_padding_left - glyphInfo.xoffset;
             SkScalar drawy = y + glyhMargin + config.glyph_padding_up + glyphInfo.height - glyphInfo.yoffset;
@@ -452,10 +452,10 @@ void FntGen::drawGlyphs(const GenerateConfig& config, FntPage& page, SkCanvas* c
             SkScalar w = (SkScalar)glyphInfo.width;
             SkScalar h = (SkScalar)glyphInfo.height;
 
-            // Ãè±ß»æÖÆ
+            // æè¾¹ç»˜åˆ¶
             if (config.text_style.outline_thickness > 0)
             {
-                // Ãè±ßÒõÓ°
+                // æè¾¹é˜´å½±
                 for (size_t index = 0; index < outlineShadowPaints.size(); ++index)
                 {
                     auto& shadowPaint = outlineShadowPaints[index];
@@ -467,7 +467,7 @@ void FntGen::drawGlyphs(const GenerateConfig& config, FntPage& page, SkCanvas* c
                 canvas->drawSimpleText(&glyphInfo.codepoint, sizeof(glyphInfo.codepoint), SkTextEncoding::kUTF32, drawx, drawy, glyphInfo.font, outlinePaint);
             }
 
-            // ÎÄ×ÖÒõÓ°
+            // æ–‡å­—é˜´å½±
             for (size_t index = 0; index < textShadowPaints.size(); ++index)
             {
                 auto& shadowPaint = textShadowPaints[index];
@@ -475,22 +475,22 @@ void FntGen::drawGlyphs(const GenerateConfig& config, FntPage& page, SkCanvas* c
                 canvas->drawSimpleText(&glyphInfo.codepoint, sizeof(glyphInfo.codepoint), SkTextEncoding::kUTF32, drawx, drawy, glyphInfo.font, shadowPaint);
             }
 
-            // ÎÄ×Ö»æÖÆ
+            // æ–‡å­—ç»˜åˆ¶
             setPaintShader(textPaint, config.text_style.effect, drawx, drawy - h, w, h);
             canvas->drawSimpleText(&glyphInfo.codepoint, sizeof(glyphInfo.codepoint), SkTextEncoding::kUTF32, drawx, drawy, glyphInfo.font, textPaint);
 
             if (config.is_draw_debug)
             {
-                // »æÖÆ×Ö·ûÈ«²¿ÇøÓò
+                // ç»˜åˆ¶å­—ç¬¦å…¨éƒ¨åŒºåŸŸ
                 if (config.glyph_padding_left != 0 || config.glyph_padding_right != 0 || config.glyph_padding_up != 0 || config.glyph_padding_down != 0)
                 {
-                    // »æÖÆ×Ö·û²»´øÃè±ßÇøÓò
+                    // ç»˜åˆ¶å­—ç¬¦ä¸å¸¦æè¾¹åŒºåŸŸ
                     SkRect rect = SkRect::MakeXYWH(x, y, glyphRealWidth, glyphRealHeight);
                     debugPaint.setColor(SK_ColorGREEN);
                     canvas->drawRect(rect, debugPaint);
                 }
 
-                // »æÖÆ×Ö·û+Ãè±ßÇøÓò
+                // ç»˜åˆ¶å­—ç¬¦+æè¾¹åŒºåŸŸ
                 if (config.text_style.outline_thickness > 0)
                 {
                     SkRect rect = SkRect::MakeXYWH(x + config.glyph_padding_left, y + config.glyph_padding_up, glyphWidth, glyphHeight);
@@ -498,7 +498,7 @@ void FntGen::drawGlyphs(const GenerateConfig& config, FntPage& page, SkCanvas* c
                     canvas->drawRect(rect, debugPaint);
                 }
 
-                // »æÖÆ×Ö·û²»´øÃè±ßÇøÓò
+                // ç»˜åˆ¶å­—ç¬¦ä¸å¸¦æè¾¹åŒºåŸŸ
                 SkRect rect = SkRect::MakeXYWH(x + config.glyph_padding_left + glyhMargin, y + config.glyph_padding_up + glyhMargin, glyphInfo.width, glyphInfo.height);
                 debugPaint.setColor(SK_ColorMAGENTA);
                 canvas->drawRect(rect, debugPaint);
@@ -521,13 +521,13 @@ void FntGen::drawGlyphs(const GenerateConfig& config, FntPage& page, SkCanvas* c
 #endif
         }
 
-        // Æ«ÒÆÖµ¼ÆËã
+        // åç§»å€¼è®¡ç®—
         int diffVal = int(glyphInfo.font.getSize() - glyphInfo.height);
         glyphInfo.yoffset = glyphInfo.yoffset + diffVal;
 
         int leftSpace = std::max(glyphInfo.xadvance - glyphInfo.width, 0);
 
-        // ×Ö·ûÃè±ß¾àÀë
+        // å­—ç¬¦æè¾¹è·ç¦»
         glyphInfo.width = glyphRealWidth;
         glyphInfo.height = glyphRealHeight;
         glyphInfo.xoffset = glyphInfo.xoffset - (leftSpace / 2);
@@ -536,7 +536,7 @@ void FntGen::drawGlyphs(const GenerateConfig& config, FntPage& page, SkCanvas* c
             glyphInfo.yoffset = glyphInfo.yoffset + glyhMargin;
 #endif
 
-        // Íâ²¿ÎÄ¼ş×Ô¶¨ÒåÔö¼Ó¾àÀë
+        // å¤–éƒ¨æ–‡ä»¶è‡ªå®šä¹‰å¢åŠ è·ç¦»
         //glyphInfo.xadvance = glyphInfo.xadvance + glyhMargin * 2 + config.glyph_padding_left + config.glyph_padding_right;
         glyphInfo.xadvance += config.glyph_padding_xadvance;
     }

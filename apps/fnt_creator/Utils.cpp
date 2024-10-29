@@ -1,4 +1,4 @@
-#include "Utils.h"
+ï»¿#include "Utils.h"
 #include <sstream>
 #include <iomanip>
 #include "include/effects/SkGradientShader.h"
@@ -52,7 +52,7 @@ int nextPOT(int x)
 
 int getMinWidth(const FntPage& page, const GenerateConfig& config)
 {
-    // ×Ö·ûÔö¼ÓµÄ¿í¸ß
+    // å­—ç¬¦å¢åŠ çš„å®½é«˜
     int glyhMargin = config.text_style.outline_thickness;
     int width = 0;
     for (auto&& glyphInfo : page.glyphs)
@@ -65,7 +65,7 @@ int getMinWidth(const FntPage& page, const GenerateConfig& config)
 
 int calculateHeight(const FntPage& page, const GenerateConfig& config, int maxWidth)
 {
-    // ×Ö·ûÔö¼ÓµÄ¿í¸ß
+    // å­—ç¬¦å¢åŠ çš„å®½é«˜
     int glyhMargin = config.text_style.outline_thickness;
     int x = config.padding_left;
     int y = config.padding_up;
@@ -73,11 +73,11 @@ int calculateHeight(const FntPage& page, const GenerateConfig& config, int maxWi
 
     for (auto&& glyphInfo : page.glyphs)
     {
-        // ×Ö·û¿í¸ß£¨×Ö·û¿í¸ß+Ãè±ß´óĞ¡£©
+        // å­—ç¬¦å®½é«˜ï¼ˆå­—ç¬¦å®½é«˜+æè¾¹å¤§å°ï¼‰
         int glyphWidth = glyphInfo.width + glyhMargin * 2;
         int glyphHeight = glyphInfo.height + glyhMargin * 2;
 
-        // ×Ö·ûÊµ¼Ê¿í¸ß£¨°üÀ¨×Ö·ûÔ¤Áô¾àÀë£©
+        // å­—ç¬¦å®é™…å®½é«˜ï¼ˆåŒ…æ‹¬å­—ç¬¦é¢„ç•™è·ç¦»ï¼‰
         int glyphRealWidth = glyphWidth + config.glyph_padding_left + config.glyph_padding_right;
         int glyphRealHeight = glyphHeight + config.glyph_padding_up + config.glyph_padding_down;
 
@@ -99,13 +99,13 @@ int calculateHeight(const FntPage& page, const GenerateConfig& config, int maxWi
 
     if (config.is_NPOT)
     {
-        // 2µÄn´Î·½Ö®ºóµ×²¿Áô°×Ğ¡ÓÚÅäÖÃµÄÁô°×¾àÀë
+        // 2çš„næ¬¡æ–¹ä¹‹ååº•éƒ¨ç•™ç™½å°äºé…ç½®çš„ç•™ç™½è·ç¦»
         if (nextPOT(y) - y < config.padding_down)
         {
-            // Ôö¼Ó¸ß¶È
+            // å¢åŠ é«˜åº¦
             y = y + config.padding_down;
         }
-        // ¶ÔÆë
+        // å¯¹é½
         return nextPOT(y);
     }
     else
@@ -144,7 +144,7 @@ std::vector<char32_t> collectCodepoints(const PageConfig& config)
     return codepoints;
 }
 
-// »ñÈ¡×Ö·ûµÄ¶ÈÁ¿ĞÅÏ¢
+// è·å–å­—ç¬¦çš„åº¦é‡ä¿¡æ¯
 GlyphInfo getGlyphInfo(SkFont font, char32_t codepoint)
 {
     SkRect bounds;
@@ -158,11 +158,11 @@ GlyphInfo getGlyphInfo(SkFont font, char32_t codepoint)
     glyphInfo.y = 0;
     glyphInfo.width = (int)std::ceilf(bounds.width());
     glyphInfo.height = (int)std::ceilf(bounds.height());
-    glyphInfo.xoffset = (int)std::ceilf(bounds.left());   // ×ó²àÆ«ÒÆÁ¿
-    glyphInfo.yoffset = (int)std::ceilf(bounds.bottom()); // »ùÏßµ½×Ö·û¶¥²¿µÄÆ«ÒÆ
+    glyphInfo.xoffset = (int)std::ceilf(bounds.left());   // å·¦ä¾§åç§»é‡
+    glyphInfo.yoffset = (int)std::ceilf(bounds.bottom()); // åŸºçº¿åˆ°å­—ç¬¦é¡¶éƒ¨çš„åç§»
     glyphInfo.xadvance = (int)std::ceilf(width);
     glyphInfo.page = 0;
-    glyphInfo.chnl = 15;   // Ê¹ÓÃËùÓĞÍ¨µÀ
+    glyphInfo.chnl = 15;   // ä½¿ç”¨æ‰€æœ‰é€šé“
 
     return glyphInfo;
 }
@@ -178,7 +178,7 @@ SkFontStyle getFontStyle(bool isBold, bool isItalic)
     return SkFontStyle::Normal();
 }
 
-// ½âÎöÊ®Áù½øÖÆ×Ö·û´®ÎªÕûÊı
+// è§£æåå…­è¿›åˆ¶å­—ç¬¦ä¸²ä¸ºæ•´æ•°
 int hexToInt(const std::string& hex, bool* ok)
 {
     int value;
@@ -229,11 +229,11 @@ SkColor stringToSkColor(const std::string hex)
     return color;
 }
 
-// ½« RGBA ×ª»»Îª #RRGGBBAA ¸ñÊ½µÄ×Ö·û´®
+// å°† RGBA è½¬æ¢ä¸º #RRGGBBAA æ ¼å¼çš„å­—ç¬¦ä¸²
 std::string rgbaToHex(int r, int g, int b, int a) {
     std::stringstream ss;
 
-    // ÉèÖÃÊä³öÎª16½øÖÆ£¬ÇÒ¿í¶ÈÎª2Î»£¬²»×ã²¹0
+    // è®¾ç½®è¾“å‡ºä¸º16è¿›åˆ¶ï¼Œä¸”å®½åº¦ä¸º2ä½ï¼Œä¸è¶³è¡¥0
     ss << "#"
         << std::hex << std::setw(2) << std::setfill('0') << (r & 0xFF)
         << std::setw(2) << std::setfill('0') << (g & 0xFF)
@@ -249,7 +249,7 @@ struct NameModePair
     const char* name;
     SkBlendMode mode;
 };
-// »ìºÏÄ£Ê½Ó³Éä
+// æ··åˆæ¨¡å¼æ˜ å°„
 static NameModePair ModeMap[] = {
     { "Clear", SkBlendMode::kClear },
     { "Src", SkBlendMode::kSrc },
@@ -291,7 +291,7 @@ SkPaint createPaint(const std::string& color, const std::string& blend_mode)
     paint.setAntiAlias(true);
     paint.setColor(stringToSkColor(color));
 
-    // »ìºÏÄ£Ê½ÉèÖÃ
+    // æ··åˆæ¨¡å¼è®¾ç½®
     if (!blend_mode.empty())
     {
         for (auto i = 0; i < sizeof(ModeMap) / sizeof(ModeMap[0]); ++i)
@@ -322,7 +322,7 @@ void setPaintShader(SkPaint& paint, const TextEffect& effect, SkScalar x, SkScal
         for (auto& color : params.colors)
             colors.push_back(stringToSkColor(color));
 
-        // ÖÁÉÙÁ½ÖÖÑÕÉ«
+        // è‡³å°‘ä¸¤ç§é¢œè‰²
         while (colors.size() < 2)
         {
             colors.push_back(SK_ColorBLACK);
@@ -344,12 +344,12 @@ void setPaintShader(SkPaint& paint, const TextEffect& effect, SkScalar x, SkScal
 SkPaint createShadowPaint(const TextShadow& config)
 {
     SkPaint paint = createPaint(config.color, config.blend_mode);
-    // ´´½¨Íâ·¢¹âĞ§¹ûµÄÂË¾µ
+    // åˆ›å»ºå¤–å‘å…‰æ•ˆæœçš„æ»¤é•œ
     auto filter = SkImageFilters::DropShadow(
-        config.offsetx, config.offsety,         // XºÍY·½ÏòµÄÎ»ÒÆÎª0£¨¾ÓÖĞ·¢¹â£©
-        config.blur_radius, config.blur_radius, // Ä£ºı°ë¾¶£¨Ë®Æ½ºÍ´¹Ö±£©
-        stringToSkColor(config.color),          // ·¢¹âÑÕÉ«
-        nullptr                                 // ¸¸ÂË¾µÎª¿Õ
+        config.offsetx, config.offsety,         // Xå’ŒYæ–¹å‘çš„ä½ç§»ä¸º0ï¼ˆå±…ä¸­å‘å…‰ï¼‰
+        config.blur_radius, config.blur_radius, // æ¨¡ç³ŠåŠå¾„ï¼ˆæ°´å¹³å’Œå‚ç›´ï¼‰
+        stringToSkColor(config.color),          // å‘å…‰é¢œè‰²
+        nullptr                                 // çˆ¶æ»¤é•œä¸ºç©º
     );
     paint.setImageFilter(filter);
     return paint;

@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include <include/core/SkCanvas.h>
 #include <include/core/SkBitmap.h>
@@ -22,7 +22,7 @@ struct PageConfig
 {
     PageConfig()
     {
-        text = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!¡í;%:?*()_+-=.,/|\"'@#$^&{}[] ";
+        text = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!â„–;%:?*()_+-=.,/|\"'@#$^&{}[] ";
     }
     std::string text;
     std::vector<uint32_t> chars;
@@ -46,7 +46,7 @@ struct Position
 };
 AJSON(Position, x, y);
 
-// ÏßĞÔ½¥±ä²ÎÊı
+// çº¿æ€§æ¸å˜å‚æ•°
 struct LinearGradient
 {
     LinearGradient()
@@ -54,13 +54,13 @@ struct LinearGradient
         begin = Position(0.5f, 1.0f);
         end = Position(0.5f, 0.0f);
     }
-    // ÆğÊ¼Î»ÖÃ
+    // èµ·å§‹ä½ç½®
     Position begin;
-    // ½áÊøÎ»ÖÃ
+    // ç»“æŸä½ç½®
     Position end;
-    // ÑÕÉ«£¨ÖÁÉÙÁ½¸ö£©
+    // é¢œè‰²ï¼ˆè‡³å°‘ä¸¤ä¸ªï¼‰
     std::vector<std::string> colors;
-    // ÑÕÉ«·Ö²¼±ÈÀı£¨Ä¬ÈÏÏßĞÔ·Ö²¼£©
+    // é¢œè‰²åˆ†å¸ƒæ¯”ä¾‹ï¼ˆé»˜è®¤çº¿æ€§åˆ†å¸ƒï¼‰
     std::vector<float> pos;
 };
 AJSON(LinearGradient, begin, end, colors, pos);
@@ -71,11 +71,11 @@ struct TextEffect
     {
         effect_type = "none";
     }
-    // ÌØĞ§ÀàĞÍ
-    // linear_gradient ÏßĞÔ½¥±ä
+    // ç‰¹æ•ˆç±»å‹
+    // linear_gradient çº¿æ€§æ¸å˜
     std::string effect_type;
 
-    // ÏßĞÔ½¥±ä²ÎÊı
+    // çº¿æ€§æ¸å˜å‚æ•°
     LinearGradient linear_gradient;
 };
 AJSON(TextEffect, effect_type, linear_gradient);
@@ -94,7 +94,7 @@ struct TextShadow
     float blur_radius;
     std::string color;
     std::string blend_mode;
-    //TextEffect effect;  // ÒõÓ°ÔİÊ±²»Ö§³Öeffect
+    //TextEffect effect;  // é˜´å½±æš‚æ—¶ä¸æ”¯æŒeffect
 };
 AJSON(TextShadow, offsetx, offsety, blur_radius, color, blend_mode);
 
@@ -111,34 +111,34 @@ struct TextStyle
         outline_color = "#ffffffff";
     }
 
-    // ÎÄ×Ö´óĞ¡
+    // æ–‡å­—å¤§å°
     int font_size;
-    // ÎÄ×ÖÑÕÉ«
+    // æ–‡å­—é¢œè‰²
     std::string color;
-    // ÎÄ×Ö»ìºÏÄ£Ê½
+    // æ–‡å­—æ··åˆæ¨¡å¼
     std::string blend_mode;
 
-    // ÎÄ×ÖÒõÓ°
+    // æ–‡å­—é˜´å½±
     std::vector<TextShadow> shadows;
-    // ÎÄ×ÖÌØĞ§
+    // æ–‡å­—ç‰¹æ•ˆ
     TextEffect effect;
-    // ±³¾°ÑÕÉ«
+    // èƒŒæ™¯é¢œè‰²
     std::string background_color;
-    // ÊÇ·ñ¼Ó´Ö
+    // æ˜¯å¦åŠ ç²—
     bool is_bold;
-    // ÊÇ·ñÇãĞ±
+    // æ˜¯å¦å€¾æ–œ
     bool is_italic;
-    // Ãè±ß¿í¶È
+    // æè¾¹å®½åº¦
     int outline_thickness;
-    // Ãè±ß»æÖÆÊ±Ëõ·Å
+    // æè¾¹ç»˜åˆ¶æ—¶ç¼©æ”¾
     float outline_thickness_render_scale;
-    // Ãè±ßÑÕÉ«
+    // æè¾¹é¢œè‰²
     std::string outline_color;
-    // Ãè±ß»ìºÏÄ£Ê½
+    // æè¾¹æ··åˆæ¨¡å¼
     std::string outline_blend_mode;
-    // Ãè±ßÌØĞ§
+    // æè¾¹ç‰¹æ•ˆ
     TextEffect outline_effect;
-    // Ãè±ßÒõÓ°
+    // æè¾¹é˜´å½±
     std::vector<TextShadow> outline_shadows;
 };
 AJSON(TextStyle, 
@@ -181,51 +181,51 @@ struct GenerateConfig
         max_width = 4096;
         is_draw_debug = false;
     }
-    // Ê¹ÓÃgpuäÖÈ¾
+    // ä½¿ç”¨gpuæ¸²æŸ“
     bool use_gpu;
-    // Êä³öÎÄ¼ş
+    // è¾“å‡ºæ–‡ä»¶
     std::string output_file;
-    // ×Ö¾à
+    // å­—è·
     int spacing_horiz;
-    // ĞĞ¾à
+    // è¡Œè·
     int spacing_vert;
 
-    // Éú³ÉÍ¼Æ¬Ê±µ¥¸öÎÄ×ÖÓëµ¥¸öÎÄ×ÖÖ®¼äXÖáµÄ¼ä¾à
+    // ç”Ÿæˆå›¾ç‰‡æ—¶å•ä¸ªæ–‡å­—ä¸å•ä¸ªæ–‡å­—ä¹‹é—´Xè½´çš„é—´è·
     int spacing_glyph_x;
-    // Éú³ÉÍ¼Æ¬Ê±µ¥¸öÎÄ×ÖÓëµ¥¸öÎÄ×ÖÖ®¼äYÖáµÄ¼ä¾à
+    // ç”Ÿæˆå›¾ç‰‡æ—¶å•ä¸ªæ–‡å­—ä¸å•ä¸ªæ–‡å­—ä¹‹é—´Yè½´çš„é—´è·
     int spacing_glyph_y;
 
-    // µ¥¸öÎÄ×Ö xadvance Ôö¼Ó¾àÀë
+    // å•ä¸ªæ–‡å­— xadvance å¢åŠ è·ç¦»
     int glyph_padding_xadvance;
 
-    // µ¥¸öÎÄ×Ö¾àÀë¶¥²¿¼ä¾à
+    // å•ä¸ªæ–‡å­—è·ç¦»é¡¶éƒ¨é—´è·
     int glyph_padding_up;
-    // µ¥¸öÎÄ×Ö¾àÀëµ×²¿¼ä¾à
+    // å•ä¸ªæ–‡å­—è·ç¦»åº•éƒ¨é—´è·
     int glyph_padding_down;
-    // µ¥¸öÎÄ×Ö¾àÀë×ó±ß¼ä¾à
+    // å•ä¸ªæ–‡å­—è·ç¦»å·¦è¾¹é—´è·
     int glyph_padding_left;
-    // µ¥¸öÎÄ×Ö¾àÀëÓÒ±ß¼ä¾à
+    // å•ä¸ªæ–‡å­—è·ç¦»å³è¾¹é—´è·
     int glyph_padding_right;
 
-    // Éú³ÉµÄÍ¼Æ¬¾àÀë¶¥²¿¼ä¾à
+    // ç”Ÿæˆçš„å›¾ç‰‡è·ç¦»é¡¶éƒ¨é—´è·
     int padding_up;
-    // Éú³ÉµÄÍ¼Æ¬¾àÀëµ×²¿¼ä¾à
+    // ç”Ÿæˆçš„å›¾ç‰‡è·ç¦»åº•éƒ¨é—´è·
     int padding_down;
-    // Éú³ÉµÄÍ¼Æ¬¾àÀë×ó±ß¼ä¾à
+    // ç”Ÿæˆçš„å›¾ç‰‡è·ç¦»å·¦è¾¹é—´è·
     int padding_left;
-    // Éú³ÉµÄÍ¼Æ¬¾àÀëÓÒ±ß¼ä¾à
+    // ç”Ÿæˆçš„å›¾ç‰‡è·ç¦»å³è¾¹é—´è·
     int padding_right;
-    // Éú³ÉÍ¼Æ¬µÄ¿í¸ßÊÇ·ñÊÇ2µÄn´Î·½
+    // ç”Ÿæˆå›¾ç‰‡çš„å®½é«˜æ˜¯å¦æ˜¯2çš„næ¬¡æ–¹
     bool is_NPOT;
-    // ÊÇ·ñÍêÈ«°ü¹ü×ÖÌå
+    // æ˜¯å¦å®Œå…¨åŒ…è£¹å­—ä½“
     bool is_fully_wrapped_mode;
-    // Êä³öÍ¼Æ¬×î´ó¿í¶È
+    // è¾“å‡ºå›¾ç‰‡æœ€å¤§å®½åº¦
     int max_width;
 
-    // ÊÇ·ñ»æÖÆdebugĞÅÏ¢
+    // æ˜¯å¦ç»˜åˆ¶debugä¿¡æ¯
     bool is_draw_debug;
 
-    // ×ÖÌåÑùÊ½
+    // å­—ä½“æ ·å¼
     TextStyle text_style;
 
     std::vector<PageConfig> pages;
@@ -261,18 +261,18 @@ struct GlyphInfo
 
     int x;
     int y;
-    // ×Ö·ûÊµ¼ÊÕ¼ÓÃ¿í¶È
+    // å­—ç¬¦å®é™…å ç”¨å®½åº¦
     int width;
-    // ×Ö·ûÊµ¼ÊÕ¼ÓÃ¸ß¶È
+    // å­—ç¬¦å®é™…å ç”¨é«˜åº¦
     int height;
-    // »æÖÆ×Ö·ûÊ±µÄÆ«ÒÆÁ¿
+    // ç»˜åˆ¶å­—ç¬¦æ—¶çš„åç§»é‡
     int xoffset;
     int yoffset;
-    // ¹â±êÔÚ»æÖÆÍê¸Ã×Ö·ûºóĞèÒªÒÆ¶¯µÄ¾àÀë¡£
+    // å…‰æ ‡åœ¨ç»˜åˆ¶å®Œè¯¥å­—ç¬¦åéœ€è¦ç§»åŠ¨çš„è·ç¦»ã€‚
     int xadvance;
-    // ×Ö·ûËùÔÚµÄÎÆÀíÒ³Ãæ±àºÅ£¨ÓÃÓÚ¶àÒ³ÃæÖ§³Ö£©
+    // å­—ç¬¦æ‰€åœ¨çš„çº¹ç†é¡µé¢ç¼–å·ï¼ˆç”¨äºå¤šé¡µé¢æ”¯æŒï¼‰
     int page;
-    // Ö¸¶¨ÑÕÉ«Í¨µÀ£¨±ÈÈç RGBA ¸ñÊ½ÖĞµÄ 15 ´ú±íËùÓĞÍ¨µÀ£©
+    // æŒ‡å®šé¢œè‰²é€šé“ï¼ˆæ¯”å¦‚ RGBA æ ¼å¼ä¸­çš„ 15 ä»£è¡¨æ‰€æœ‰é€šé“ï¼‰
     int chnl;
 };
 

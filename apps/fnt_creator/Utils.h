@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "Common.h"
 
@@ -12,7 +12,7 @@ int calculateHeight(const FntPage& page, const GenerateConfig& config, int maxWi
 
 std::vector<char32_t> collectCodepoints(const PageConfig& config);
 
-// »ñÈ¡×Ö·ûµÄ¶ÈÁ¿ĞÅÏ¢
+// è·å–å­—ç¬¦çš„åº¦é‡ä¿¡æ¯
 GlyphInfo getGlyphInfo(SkFont font, char32_t codepoint);
 
 SkFontStyle getFontStyle(bool isBold, bool isItalic);

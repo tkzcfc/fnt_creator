@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include <memory>
 #include "Texture.h"
@@ -43,9 +43,9 @@ private:
 	GenerateConfig m_config;
 	std::unique_ptr<FntGen> m_gen;
 
-	// ´°¿ÚÊµ¼Ê¿í¸ß(Êµ¼Ê·Ö±æÂÊ)
+	// çª—å£å®é™…å®½é«˜(å®é™…åˆ†è¾¨ç‡)
 	glm::vec2 m_screenSize;
-	// Âß¼­¿í¸ß(Éè¼Æ·Ö±æÂÊ)
+	// é€»è¾‘å®½é«˜(è®¾è®¡åˆ†è¾¨ç‡)
 	glm::vec2 m_winSize;
 
 	std::unique_ptr<Shader> m_img_shader;
