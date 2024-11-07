@@ -1,0 +1,46 @@
+{
+    "output_file": "montserrat_bold.fnt",
+
+    "spacing_horiz": 0,
+    "spacing_vert": 0,
+
+    "spacing_glyph_x": 1,
+    "spacing_glyph_y": 1,
+
+    "glyph_padding_left": 0,
+    "glyph_padding_right": 0,
+    "glyph_padding_up": 0,
+    "glyph_padding_down": 0,
+
+    "padding_left": 0,
+    "padding_right": 0,
+    "padding_up": 0,
+    "padding_down": 0,
+    "is_NPOT": true,
+    "is_fully_wrapped_mode": true,
+    "max_width": 2048,
+
+    "is_draw_debug": false,
+
+    "text_style": {
+        "font_size": 34,
+        "color": "#FFFFFFFF",
+        "background_color": "",
+        "is_bold": false,
+        "is_italic": false,
+        "outline_thickness": 2,
+        "outline_thickness_render_scale": 2,
+        "outline_color": "#1a1a1aff"
+    },
+
+    "pages": [
+        {
+            "text": "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!\" #$%&'()*+,-./:;<=>?@[\\]^_`{|}~",
+            "fonts": [
+				"./montserrat_bold.ttf"
+            ]
+        }
+    ]
+}
+
+

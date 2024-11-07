@@ -376,6 +376,9 @@ void Editor::imguiDraw()
         if(m_texture)
             ImGui::Text("%d x %d", m_texture->width(), m_texture->height());
 
+        if (ImGui::Button("save config to file"))
+            ajson::save_to_file(m_config, "fnt_creator_edit_config.json");
+
         refresh |= ImGui::Checkbox("use_gpu", &m_config.use_gpu);
         refresh |= ImGui::Checkbox("is_draw_debug", &m_config.is_draw_debug);
 
@@ -391,10 +394,12 @@ void Editor::imguiDraw()
             refresh |= ImGui::InputInt("spacing_vert", &m_config.spacing_vert);
             refresh |= ImGui::InputInt("spacing_glyph_x", &m_config.spacing_glyph_x);
             refresh |= ImGui::InputInt("spacing_glyph_y", &m_config.spacing_glyph_y);
+            refresh |= ImGui::InputInt("line_height_padding_adcance", &m_config.line_height_padding_adcance);
         }
 
         if (ImGui::CollapsingHeader("glyph", ImGuiTreeNodeFlags_DefaultOpen))
         {
+            refresh |= ImGui::InputInt("glyph_padding_yadvance", &m_config.glyph_padding_yadvance);
             refresh |= ImGui::InputInt("glyph_padding_xadvance", &m_config.glyph_padding_xadvance);
             refresh |= ImGui::InputInt("glyph_padding_up", &m_config.glyph_padding_up);
             refresh |= ImGui::InputInt("glyph_padding_down", &m_config.glyph_padding_down);
