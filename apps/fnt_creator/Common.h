@@ -22,13 +22,16 @@ struct PageConfig
 {
     PageConfig()
     {
+        fixed_width_alignment = false;
         text = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!№;%:?*()_+-=.,/|\"'@#$^&{}[] ";
     }
+	// 是否固定宽度对齐(按最大字符宽度)
+    bool fixed_width_alignment;
     std::string text;
     std::vector<uint32_t> chars;
     std::vector<std::string> fonts;
 };
-AJSON(PageConfig, text, chars, fonts);
+AJSON(PageConfig, fixed_width_alignment, text, chars, fonts);
 
 struct Position
 {
@@ -181,7 +184,16 @@ struct GenerateConfig
         is_NPOT = true;
         is_fully_wrapped_mode = true;
         max_width = 4096;
+
         is_draw_debug = false;
+        is_debug_draw_glyph_all_area = true;
+        is_debug_draw_glyph_outline_thickness_area = false;
+        is_debug_draw_glyph_raw_area = false;
+        is_debug_draw_glyph_real_area = true;
+        color_debug_draw_glyph_all_area = "#00FF00FF";
+        color_debug_draw_glyph_outline_thickness_area = "#00FFFFFF";
+        color_debug_draw_glyph_raw_area = "#FF0000FF";
+        color_debug_draw_glyph_real_area = "#0000FFFF";
     }
     // 使用gpu渲染
     bool use_gpu;
@@ -229,13 +241,24 @@ struct GenerateConfig
     // 输出图片最大宽度
     int max_width;
 
-    // 是否绘制debug信息
-    bool is_draw_debug;
 
     // 字体样式
     TextStyle text_style;
 
     std::vector<PageConfig> pages;
+
+
+    // 是否绘制debug信息
+    bool is_draw_debug;
+    bool is_debug_draw_glyph_all_area;
+    bool is_debug_draw_glyph_outline_thickness_area;
+    bool is_debug_draw_glyph_raw_area;
+    bool is_debug_draw_glyph_real_area;
+    std::string color_debug_draw_glyph_all_area;
+    std::string color_debug_draw_glyph_outline_thickness_area;
+    std::string color_debug_draw_glyph_raw_area;
+    std::string color_debug_draw_glyph_real_area;
+
 };
 AJSON(GenerateConfig,
     use_gpu,
@@ -283,10 +306,22 @@ struct GlyphInfo
     int page;
     // 指定颜色通道（比如 RGBA 格式中的 15 代表所有通道）
     int chnl;
+
+
+    // 单个文字距离顶部间距(>=0)
+    int padding_up;
+    // 单个文字距离底部间距(>=0)
+    int padding_down;
+    // 单个文字距离左边间距(>=0)
+    int padding_left;
+    // 单个文字距离右边间距(>=0)
+    int padding_right;
 };
 
 struct FntPage
 {
+    // 是否固定宽度对齐(按最大字符宽度)
+    bool fixed_width_alignment;
     int width;
     int height;
     std::vector<GlyphInfo> glyphs;

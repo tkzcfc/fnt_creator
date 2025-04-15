@@ -57,8 +57,9 @@ int getMinWidth(const FntPage& page, const GenerateConfig& config)
     int width = 0;
     for (auto&& glyphInfo : page.glyphs)
     {
-        if (glyphInfo.width > width)
-            width = glyphInfo.width;
+        int glyphRealWidth = glyphInfo.width + glyphInfo.padding_left + glyphInfo.padding_right;
+        if (glyphRealWidth > width)
+            width = glyphRealWidth;
     }
     return width + config.padding_left + config.padding_right + config.glyph_padding_left + config.glyph_padding_right + glyhMargin * 2;
 }
@@ -78,8 +79,8 @@ int calculateHeight(const FntPage& page, const GenerateConfig& config, int maxWi
         int glyphHeight = glyphInfo.height + glyhMargin * 2;
 
         // 字符实际宽高（包括字符预留距离）
-        int glyphRealWidth = glyphWidth + config.glyph_padding_left + config.glyph_padding_right;
-        int glyphRealHeight = glyphHeight + config.glyph_padding_up + config.glyph_padding_down;
+        int glyphRealWidth = glyphWidth + glyphInfo.padding_left + glyphInfo.padding_right + config.glyph_padding_left + config.glyph_padding_right;
+        int glyphRealHeight = glyphHeight + glyphInfo.padding_up + glyphInfo.padding_down + config.glyph_padding_up + config.glyph_padding_down;
 
         auto maxHeightBack = maxHeight;
         maxHeight = std::max(maxHeight, glyphRealHeight);

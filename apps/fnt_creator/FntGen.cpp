@@ -171,6 +171,7 @@ void FntGen::matchFont(const GenerateConfig& config)
         if (!glyphs.empty())
         {
             m_fntInfo.pages.push_back(FntPage{
+				.fixed_width_alignment = pageCfg.fixed_width_alignment,
                 .width = 0,
                 .height = 0,
                 .glyphs = glyphs,
@@ -204,6 +205,42 @@ void FntGen::initPageData(const GenerateConfig& config, FntPage& page, int pageI
         page.fileName = stringFormat("%s%d.png", m_outFileName.c_str(), pageIndex);
     else
         page.fileName = stringFormat("%s.png", m_outFileName.c_str());
+
+
+
+    for (auto& glyphInfo : page.glyphs)
+    {
+        glyphInfo.padding_up = 0;
+        glyphInfo.padding_down = 0;
+        glyphInfo.padding_left = 0;
+        glyphInfo.padding_right = 0;
+    }
+
+    if (page.fixed_width_alignment)
+    {
+        // 找到本页字符最大宽高
+        int maxGlyphWidth = 0;
+        int maxGlyphHeight = 0;
+        for (auto& glyphInfo : page.glyphs)
+        {
+            if (glyphInfo.width > maxGlyphWidth)
+                maxGlyphWidth = glyphInfo.width;
+            if (glyphInfo.height > maxGlyphHeight)
+                maxGlyphHeight = glyphInfo.height;
+        }
+
+        // 计算每个字符的偏移量
+        for (auto& glyphInfo : page.glyphs)
+        {
+            auto diffWidth = maxGlyphWidth - glyphInfo.width;
+            glyphInfo.padding_left = diffWidth / 2;
+            glyphInfo.padding_right = diffWidth - glyphInfo.padding_left;
+            
+            //auto diffHeight = maxGlyphHeight - glyphInfo.height;
+            //glyphInfo.padding_down = diffHeight / 2;
+            //glyphInfo.padding_up = diffHeight - glyphInfo.padding_down;
+        }
+    }
 
     // 计算最适合的最大宽度
     int maxWidth = 0;
@@ -426,9 +463,9 @@ void FntGen::drawGlyphs(const GenerateConfig& config, FntPage& page, SkCanvas* c
         int glyphHeight = glyphInfo.height + glyhMargin * 2;
 
         // 字符实际宽高（包括字符预留距离）
-        int glyphRealWidth = glyphWidth + config.glyph_padding_left + config.glyph_padding_right;
-        int glyphRealHeight = glyphHeight + config.glyph_padding_up + config.glyph_padding_down;
-
+        int glyphRealWidth = glyphWidth + glyphInfo.padding_left + glyphInfo.padding_right + config.glyph_padding_left + config.glyph_padding_right;
+        int glyphRealHeight = glyphHeight + glyphInfo.padding_up + glyphInfo.padding_down + config.glyph_padding_up + config.glyph_padding_down;
+        
         auto maxHeightBack = maxHeight;
         maxHeight = std::max(maxHeight, glyphRealHeight);
 
@@ -442,12 +479,10 @@ void FntGen::drawGlyphs(const GenerateConfig& config, FntPage& page, SkCanvas* c
         glyphInfo.x = x;
         glyphInfo.y = y;
 
-        //printf("x:%d,y:%d, w:%d,h:%d  xoffset:%d,yoffset:%d  xadvance:%d\n", glyphInfo.x, glyphInfo.y, glyphInfo.width, glyphInfo.height, glyphInfo.xoffset, glyphInfo.yoffset, glyphInfo.xadvance);
-
         // 绘制相关逻辑
         {
-            SkScalar drawx = x + glyhMargin + config.glyph_padding_left - glyphInfo.xoffset;
-            SkScalar drawy = y + glyhMargin + config.glyph_padding_up + glyphInfo.height - glyphInfo.yoffset;
+            SkScalar drawx = x + glyhMargin + glyphInfo.padding_left + config.glyph_padding_left - glyphInfo.xoffset;
+            SkScalar drawy = y + glyhMargin + glyphInfo.padding_up + config.glyph_padding_up + glyphInfo.height - glyphInfo.yoffset;
 
             SkScalar w = (SkScalar)glyphInfo.width;
             SkScalar h = (SkScalar)glyphInfo.height;
@@ -482,26 +517,40 @@ void FntGen::drawGlyphs(const GenerateConfig& config, FntPage& page, SkCanvas* c
             if (config.is_draw_debug)
             {
                 // 绘制字符全部区域
-                if (config.glyph_padding_left != 0 || config.glyph_padding_right != 0 || config.glyph_padding_up != 0 || config.glyph_padding_down != 0)
+                if (config.is_debug_draw_glyph_all_area)
                 {
-                    // 绘制字符不带描边区域
-                    SkRect rect = SkRect::MakeXYWH(x, y, glyphRealWidth, glyphRealHeight);
-                    debugPaint.setColor(SK_ColorGREEN);
+                    if (config.glyph_padding_left != 0 || config.glyph_padding_right != 0 || config.glyph_padding_up != 0 || config.glyph_padding_down != 0)
+                    {
+                        // 绘制字符不带描边区域
+                        SkRect rect = SkRect::MakeXYWH(x, y, glyphRealWidth, glyphRealHeight);
+                        debugPaint.setColor(stringToSkColor(config.color_debug_draw_glyph_all_area));
+                        canvas->drawRect(rect, debugPaint);
+                    }
+                }
+
+                if (config.is_debug_draw_glyph_real_area)
+                {
+                    // 绘制字符实际区域
+                    SkRect rect = SkRect::MakeXYWH(x + config.glyph_padding_left, y + config.glyph_padding_up, glyphWidth + glyphInfo.padding_left + glyphInfo.padding_right, glyphHeight + glyphInfo.padding_up + glyphInfo.padding_down);
+                    debugPaint.setColor(stringToSkColor(config.color_debug_draw_glyph_real_area));
                     canvas->drawRect(rect, debugPaint);
                 }
 
                 // 绘制字符+描边区域
-                if (config.text_style.outline_thickness > 0)
+                if (config.is_debug_draw_glyph_outline_thickness_area && config.text_style.outline_thickness > 0)
                 {
-                    SkRect rect = SkRect::MakeXYWH(x + config.glyph_padding_left, y + config.glyph_padding_up, glyphWidth, glyphHeight);
-                    debugPaint.setColor(SK_ColorCYAN);
+                    SkRect rect = SkRect::MakeXYWH(x + config.glyph_padding_left + glyphInfo.padding_left, y + config.glyph_padding_up + glyphInfo.padding_up, glyphWidth, glyphHeight);
+                    debugPaint.setColor(stringToSkColor(config.color_debug_draw_glyph_outline_thickness_area));
                     canvas->drawRect(rect, debugPaint);
                 }
 
-                // 绘制字符不带描边区域
-                SkRect rect = SkRect::MakeXYWH(x + config.glyph_padding_left + glyhMargin, y + config.glyph_padding_up + glyhMargin, glyphInfo.width, glyphInfo.height);
-                debugPaint.setColor(SK_ColorMAGENTA);
-                canvas->drawRect(rect, debugPaint);
+                if (config.is_debug_draw_glyph_raw_area)
+                {
+                    // 绘制字符不带描边区域
+                    SkRect rect = SkRect::MakeXYWH(x + config.glyph_padding_left + glyphInfo.padding_left + glyhMargin, y + config.glyph_padding_up + glyphInfo.padding_up + glyhMargin, glyphInfo.width, glyphInfo.height);
+                    debugPaint.setColor(stringToSkColor(config.color_debug_draw_glyph_raw_area));
+                    canvas->drawRect(rect, debugPaint);
+                }
             }
         }
 
@@ -542,6 +591,21 @@ void FntGen::drawGlyphs(const GenerateConfig& config, FntPage& page, SkCanvas* c
         // 外部文件自定义增加距离
         //glyphInfo.xadvance = glyphInfo.xadvance + glyhMargin * 2 + config.glyph_padding_left + config.glyph_padding_right;
         glyphInfo.xadvance += config.glyph_padding_xadvance;
+    }
+
+
+    if (page.fixed_width_alignment)
+    {
+        int maxXadvance = 0;
+        for (auto& glyphInfo : page.glyphs)
+        {
+            if (glyphInfo.xadvance > maxXadvance)
+                maxXadvance = glyphInfo.xadvance;
+        }
+        for (auto& glyphInfo : page.glyphs)
+        {
+            glyphInfo.xadvance = maxXadvance;
+        }
     }
 
     canvas->flush();

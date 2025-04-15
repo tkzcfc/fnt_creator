@@ -68,6 +68,7 @@ const char* templateConfigStr = R"(
 
     "pages": [
         {
+            "fixed_width_alignment": false,
             "text": "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_=  ",
             "fonts": [
             ]

@@ -380,7 +380,6 @@ void Editor::imguiDraw()
             ajson::save_to_file(m_config, "fnt_creator_edit_config.json");
 
         refresh |= ImGui::Checkbox("use_gpu", &m_config.use_gpu);
-        refresh |= ImGui::Checkbox("is_draw_debug", &m_config.is_draw_debug);
 
         char szbuf[2048] = { 0 };
         strcpy_s(szbuf, m_config.output_file.c_str());
@@ -417,6 +416,28 @@ void Editor::imguiDraw()
 
             refresh |= ImGui::Checkbox("is_NPOT", &m_config.is_NPOT);
             refresh |= ImGui::Checkbox("is_fully_wrapped_mode", &m_config.is_fully_wrapped_mode);
+        }
+
+        if (ImGui::CollapsingHeader("debug", ImGuiTreeNodeFlags_DefaultOpen))
+        {
+            refresh |= ImGui::Checkbox("is_draw_debug", &m_config.is_draw_debug);
+            if (m_config.is_draw_debug)
+            {
+                refresh |= ImGui::Checkbox("is_debug_draw_glyph_all_area", &m_config.is_debug_draw_glyph_all_area);
+                refresh |= imguiColor("color_debug_draw_glyph_all_area", &m_config.color_debug_draw_glyph_all_area);
+                ImGui::Separator();
+
+                refresh |= ImGui::Checkbox("is_debug_draw_glyph_outline_thickness_area", &m_config.is_debug_draw_glyph_outline_thickness_area);
+                refresh |= imguiColor("color_debug_draw_glyph_outline_thickness_area", &m_config.color_debug_draw_glyph_outline_thickness_area);
+                ImGui::Separator();
+
+                refresh |= ImGui::Checkbox("is_debug_draw_glyph_raw_area", &m_config.is_debug_draw_glyph_raw_area);
+                refresh |= imguiColor("color_debug_draw_glyph_raw_area", &m_config.color_debug_draw_glyph_raw_area);
+                ImGui::Separator();
+
+                refresh |= ImGui::Checkbox("is_debug_draw_glyph_real_area", &m_config.is_debug_draw_glyph_real_area);
+                refresh |= imguiColor("color_debug_draw_glyph_real_area", &m_config.color_debug_draw_glyph_real_area);
+            }
         }
 
         ImGui::End();
