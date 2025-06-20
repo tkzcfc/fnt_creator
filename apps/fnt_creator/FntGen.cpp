@@ -652,7 +652,7 @@ bool FntGen::saveFont(const GenerateConfig& config)
     for (size_t n = 0; n < numPages; n++)
     {
         auto&& page = m_fntInfo.pages[n];
-        fprintf(f, "page id=%d file=\"%s\"\r\n", (int)n, page.fileName.c_str());
+        fprintf(f, "page id=%d file=\"%s\"\r\n", (int)n, getBasename(page.fileName).c_str());
 
         fprintf(f, "chars count=%d\r\n", (int)page.glyphs.size());
         for (auto&& glyphInfo : page.glyphs)

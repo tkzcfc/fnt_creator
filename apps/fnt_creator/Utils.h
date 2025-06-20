@@ -6,6 +6,8 @@ std::string stringFormat(const char* format, ...);
 
 int nextPOT(int x);
 
+std::string getBasename(const std::string& path);
+
 int getMinWidth(const FntPage& page, const GenerateConfig& config);
 
 int calculateHeight(const FntPage& page, const GenerateConfig& config, int maxWidth);
